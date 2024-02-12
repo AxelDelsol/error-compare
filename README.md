@@ -9,21 +9,21 @@ The function does the following operations:
 
 1. Validate the input value
 1. Open/create a file (it emulates resource aquisition)
-1. Make an API call to retrieve a value from the input
+1. Make an API call to retrieve a value from the input (the API call is made using an external library that can not be modified)
 1. Write the API response to the file
 1. Close the file
 1. Process the API result and return
 
 Each step may generate an error and as a developer, we must properly handle them. This project tries four differents error handling mecanism found in common languages nowadays and asks the following questions:
 
-- How easy is it for an end user to fill a ticket / ask for help when an error occurs ? It implies that he does not know ANYTHING about the code. He could be a client trying to add an item to his cart and gets an error.
-- If `do_something` was part of a library, can you easily know whether you incorrectly use the function or you should fill a github issue.
-- You are asked to maintain the code, how hard is it to get started ?
+1. How easy is it for an end user to fill a ticket / ask for help when an error occurs ? It implies that he does not know ANYTHING about the code. He could be a client trying to add an item to his cart and gets an error.
+1. If `do_something` was part of a library, can you easily know whether you incorrectly use the function or you should fill a github issue.
+1. You are asked to maintain the code, how hard is it to get started ?
 
 
 ## Error handling
 
-- [ ] No hanling
+- [x] No handling
 - [ ] Exception (native python)
 - [ ] Result monad (functional programming & Rust)
 - [ ] Tuple (golang style)
@@ -33,6 +33,12 @@ Each step may generate an error and as a developer, we must properly handle them
 It does not handle any errors and only focus on the "happy path".
 
 This methods is not recommended for production code. Only use it for PoC or if you want to get started with a new tool.
+
+---
+1. The user has no idea how to report the except "it fails when I did this". A lot of some is wasted trying to reproduce the issue.
+1. Unless a good documentation is written, a developer using `do_something` can not tell whether the function raises an error or not.
+1. Knowing which exception to raise and where it is used requires to read the internal of each function. It may be fine on a small project, but becomes really complicated.
+
 
 ### Exception
 
