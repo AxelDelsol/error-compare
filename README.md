@@ -24,7 +24,7 @@ Each step may generate an error and as a developer, we must properly handle them
 ## Error handling
 
 - [x] No handling
-- [ ] Exception (native python)
+- [x] Exception (native python)
 - [ ] Result monad (functional programming & Rust)
 - [ ] Tuple (golang style)
 
@@ -45,6 +45,10 @@ This methods is not recommended for production code. Only use it for PoC or if y
 Exception is the most popular way to handle errors. Many languages use it: C++, Python, Java... When an error occurs, an exception is raised/thrown. This causes the program to stop its "normal" execution and the exception is propagated up the calling stack until it is catched or the program crashes.
 
 Exceptions are handled at the language level. It provides a way to raise/throw an error, to catch an error and (sometimes) execute code before the propagation.
+
+1. The user can now report the stack trace and the associated notes that the author of `do_something` added to help with debugging.
+1. Unless a good documentation is written, a developer using `do_something` can not tell whether the function raises an error or not.
+1. Knowing which exception to raise and where it is used is a bit simpler with the try/except keywords. The note feature of python's exception allows to help ourselves in the future by adding extra comments to an error.
 
 ### Result
 
