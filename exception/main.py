@@ -15,9 +15,9 @@ def external(id: int) -> int:
 def do_something(id: int) -> bool:
     validate(id)
 
-    with open("no_handling.log", mode="w") as f:
+    with open("exception.log", mode="a") as f:
         output = external(100 * id + id)
-        f.write(f"The value is {output}")
+        f.write(f"The value is {output}\n")
 
         return output % 2 == 0
 

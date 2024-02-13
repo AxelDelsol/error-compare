@@ -25,7 +25,7 @@ Each step may generate an error and as a developer, we must properly handle them
 
 - [x] No handling
 - [x] Exception (native python)
-- [ ] Result monad (functional programming & Rust)
+- [x] Result monad (functional programming & Rust)
 - [ ] Tuple (golang style)
 
 ### No handling
@@ -46,6 +46,9 @@ Exception is the most popular way to handle errors. Many languages use it: C++, 
 
 Exceptions are handled at the language level. It provides a way to raise/throw an error, to catch an error and (sometimes) execute code before the propagation.
 
+---
+When implementing this approach, I asked myself where to put try/except blocks. If I wanted to be very precise, I would have to wrap every function inside a try block, making the code very difficult to read. Instead I chose to only wrap external code and top level application code.
+
 1. The user can now report the stack trace and the associated notes that the author of `do_something` added to help with debugging.
 1. Unless a good documentation is written, a developer using `do_something` can not tell whether the function raises an error or not.
 1. Knowing which exception to raise and where it is used is a bit simpler with the try/except keywords. The note feature of python's exception allows to help ourselves in the future by adding extra comments to an error.
@@ -55,6 +58,12 @@ Exceptions are handled at the language level. It provides a way to raise/throw a
 Languages such as Haskell or Rust do not have exceptions. Instead, they use their type system to encode when an error occurs.
 
 In simple term, Result is a type that can either contain a value or an error. Functions that may generate an error return a Result and the caller decide what to do with it.
+
+---
+
+1. Same effect as exception. The user can pass down whatever is displayed to the support service
+1. It is very easy to know if a function can fail just by reading its signature. It also forces the developer to deal with the result if he/she wants to access the undelying value
+1. Requires knowledge about functional programming which is not that common in python. Also it does not work that well if it is not the idiomatic way to handle errors (such as Pyhton which is exception based). 
 
 ### Tuple
 
