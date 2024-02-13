@@ -26,7 +26,7 @@ Each step may generate an error and as a developer, we must properly handle them
 - [x] No handling
 - [x] Exception (native python)
 - [x] Result monad (functional programming & Rust)
-- [ ] Tuple (golang style)
+- [x] Tuple (golang style)
 
 ### No handling
 
@@ -61,7 +61,7 @@ In simple term, Result is a type that can either contain a value or an error. Fu
 
 ---
 
-1. Same effect as exception. The user can pass down whatever is displayed to the support service
+1. A bit worse than exception as you lose the stacktrace.
 1. It is very easy to know if a function can fail just by reading its signature. It also forces the developer to deal with the result if he/she wants to access the undelying value
 1. Requires knowledge about functional programming which is not that common in python. Also it does not work that well if it is not the idiomatic way to handle errors (such as Pyhton which is exception based). 
 
@@ -69,3 +69,18 @@ In simple term, Result is a type that can either contain a value or an error. Fu
 
 Golang takes a different approach. It is based on two features: (i) anything has a "null value" and (ii) a function can return multiple values.
 Thus, an idiomatic way to indicate that an error occurs is to make your function returns a tuple (value, error). If the function is successful, error is set to  nil and value contains the "real" function return. If there is an error, value contains its "null value" and the error contains a useful object (it actually implements the error interface).
+
+---
+
+Python's static type checking shows that error handling in Go only works because of its convention (at most one tuple element is nil). 
+
+1. Same conclusion as Result
+1. It is very easy to know if a function can fail just by reading its signature. Checking is err is None may be cumbersome but it is better than having try/except everywhere.
+1. Returning a tuple is easy but the language does not prevent the developer from making a mistake.
+
+
+## Conclusion
+
+* Error handling is NOT an option
+* It is better to stick with the language idiomatic way even if you don't like it or if it's not the cool kid anymore.
+* My preferred way is the Result monad. The type checking system (either compiler or linter) protects you from doing bad things and forces you to deal with the error. The lack of stack trace is something to keep in mind when debugging but fine on small application or micro services.
